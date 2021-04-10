@@ -28,26 +28,29 @@ export default class generatePassword {
         return '';
     }
 
-    checkLowercaseLetter() {
-        if (this.lowercaseLetter.checked) return true;
-        return;
+    randomLowercaseLetter() {
+        if (this.lowercaseLetter.checked) return this.strUppercase.charAt(Math.floor(Math.random() * this.strUppercase.length));
+        return '';
     }
 
-    checkSymbols() {
-        if (this.symbols.checked) return true;
-        return;
+    randomSymbols() {
+        if (this.symbols.checked) return this.strSymbols.charAt(Math.floor(Math.random() * this.strSymbols.length));
+        return '';
     }
 
     controlsRandomElements() {
-        let elements = '';
-        
+        const elements = [];
+
         if (!this.checkCharAmount()) return '';
 
         for (let i = 0; i < this.checkCharAmount(); i++) {
-            elements += this.randomAddNumber() + this.randomUppercaseLetter();
+            elements.push(this.randomAddNumber());
+            elements.push(this.randomUppercaseLetter());
+            elements.push(this.randomLowercaseLetter().toLowerCase());
+            elements.push(this.randomSymbols());
         }
 
-        return elements;
+        return elements.join('').slice(0, this.checkCharAmount());
     }
 
     showPassword() {
